@@ -4,6 +4,12 @@
 %acc is the acceleration
 %dt is the sampling time
 
+% MY IMPLEMENTATION START -------------------------------------------------
+
+covarEst = 0;
+uEst = 0;
+
+% MY IMPLEMENTATION END ---------------------------------------------------
 
 end
 
