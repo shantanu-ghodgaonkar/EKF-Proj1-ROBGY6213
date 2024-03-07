@@ -11,13 +11,15 @@ prevTime = 0; %last time step in real time
 for i = 1:length(sampledTime)
 % MY IMPLEMENTATION START -------------------------------------------------
 
-    dt = sampledTime(i) - prevTime; % Calculate time interval dt
-    prevTime = sampledTime(i); % Update the previous time variable
-    [covarEst,uEst] = pred_step(uPrev,covarPrev,sampledData(i).omg,sampledData(i).acc,dt); % Perform the prediction step
+   dt = sampledTime(i) - prevTime; % Calculate time interval dt
+   prevTime = sampledTime(i); % Update the previous time variable
+   [covarEst,uEst] = pred_step(uPrev,covarPrev,sampledData(i).omg,sampledData(i).acc,dt); % Perform the prediction step
 
 
 
-%    [uCurr,covar_curr] = upd_step(z_t,covarEst,uEst);
+   [uCurr,covar_curr] = upd_step(Z(:,i),covarEst,uEst);
+
+   % savedStates(:, i) = uCurr;
     
 % MY IMPLEMENTATION END ---------------------------------------------------    
 end

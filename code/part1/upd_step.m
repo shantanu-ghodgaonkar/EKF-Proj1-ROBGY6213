@@ -5,7 +5,7 @@ function [uCurr,covar_curr] = upd_step(z_t,covarEst,uEst)
 
 % MY IMPLEMENTATION START -------------------------------------------------
 
-uCurr = 0;
+uCurr = uEst;
 covar_curr = 0;
 
 % MY IMPLEMENTATION END ---------------------------------------------------
