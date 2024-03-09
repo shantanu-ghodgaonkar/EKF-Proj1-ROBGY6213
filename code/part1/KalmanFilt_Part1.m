@@ -1,6 +1,6 @@
 tic
 clear; % Clear variables
-datasetNum = 9; % CHANGE THIS VARIABLE TO CHANGE DATASET_NUM
+datasetNum = 1; % CHANGE THIS VARIABLE TO CHANGE DATASET_NUM
 [sampledData, sampledVicon, sampledTime] = init(datasetNum);
 Z = sampledVicon(1:6,:);%all the measurements that you need for the update
 % Set initial condition
@@ -15,7 +15,7 @@ for i = 1:length(sampledTime)
    prevTime = sampledTime(i); % Update the previous time variable
    [covarEst,uEst] = pred_step(uPrev,covarPrev,sampledData(i).omg,sampledData(i).acc,dt); % Perform the prediction step
    [uCurr,covar_curr] = upd_step(Z(:,i),covarEst,uEst);
-   savedStates(:, i) = uCurr;
+   % savedStates(:, i) = uCurr;
    uPrev = uCurr;
    covarPrev = covar_curr;
 % MY IMPLEMENTATION END ---------------------------------------------------    

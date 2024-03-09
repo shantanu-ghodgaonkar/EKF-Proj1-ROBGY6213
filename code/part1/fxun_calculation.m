@@ -37,8 +37,9 @@ x = vertcat(x1,x2,x3,x4,x5);
 
 ng = [ngx;ngy;ngz];
 na = [nax;nay;naz];
-
 n = vertcat(ng,na);
+% ng = zeros(3,1);
+% na = zeros(3,1);
 
 angVel = [xOmgU;yOmgU;zOmgU];
 acc = [xVelU;yVelU;zVelU];
@@ -46,7 +47,7 @@ u = vertcat(angVel, acc);
 
 f1 = x3;
 f2 = G_inv*(angVel - x4 - ng);
-f3 = 9.80665 + (R * (acc - x5 - na));
+f3 = [0;0;9.80665] + (R * (acc - x5 - na));
 f4 = diff(x4);
 f5 = diff(x5);
 
