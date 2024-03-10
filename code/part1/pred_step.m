@@ -26,6 +26,12 @@ zOmgU = angVel(3,1);
 xVelU = acc(1,1);
 yVelU = acc(2,1);
 zVelU = acc(3,1);
+xNg = 0;
+yNg = 0;
+zNg = 0;
+xNa = 0;
+yNa = 0;
+zNa = 0;
 
 
 
@@ -55,18 +61,21 @@ R = [cyo*czo, czo*sxo*syo - cxo*szo, sxo*szo + cxo*czo*syo;
 
 f1 = x3;
 f2 = G_inv * (angVel - x4);
-f3 = 9.8 + R *(acc - x5); % 9.8 is only for Z axis
+f3 = [0;0;9.8] + R *(acc - x5); % 9.8 is only for Z axis
 f4 = zeros(3,1); % CHANGE THIS
 f5 = zeros(3,1); % CHANGE THIS
 
 f = vertcat(f1,f2,f3,f4,f5);
 uEst = uPrev + (dt*f);
 
-A=[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,1,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,1,0,0,0,0,0,0;0,0,0,0,-czo*(xBg-xOmgU)-szo*(yBg-yOmgU)-(cyo^2*czo*(xBg-xOmgU))/syo^2-(cyo^2*szo*(yBg-yOmgU))/syo^2,(cyo*czo*(yBg-yOmgU))/syo-(cyo*szo*(xBg-xOmgU))/syo,0,0,0,(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;0,0,0,0,0,czo*(xBg-xOmgU)+szo*(yBg-yOmgU),0,0,0,szo,-czo,0,0,0,0;0,0,0,0,(cyo*czo*(xBg-xOmgU))/syo^2+(cyo*szo*(yBg-yOmgU))/syo^2,(szo*(xBg-xOmgU))/syo-(czo*(yBg-yOmgU))/syo,0,0,0,-czo/syo,-szo/syo,0,0,0,0;0,0,0,-(sxo*szo+cxo*czo*syo)*(yBa-yVelU)-(cxo*szo-czo*sxo*syo)*(zBa-zVelU),czo*syo*(xBa-xVelU)-cxo*cyo*czo*(zBa-zVelU)-cyo*czo*sxo*(yBa-yVelU),(cxo*czo+sxo*syo*szo)*(yBa-yVelU)-(czo*sxo-cxo*syo*szo)*(zBa-zVelU)+cyo*szo*(xBa-xVelU),0,0,0,0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,(czo*sxo-cxo*syo*szo)*(yBa-yVelU)+(cxo*czo+sxo*syo*szo)*(zBa-zVelU),syo*szo*(xBa-xVelU)-cxo*cyo*szo*(zBa-zVelU)-cyo*sxo*szo*(yBa-yVelU),(cxo*szo-czo*sxo*syo)*(yBa-yVelU)-(sxo*szo+cxo*czo*syo)*(zBa-zVelU)-cyo*czo*(xBa-xVelU),0,0,0,0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,cyo*sxo*(zBa-zVelU)-cxo*cyo*(yBa-yVelU),cyo*(xBa-xVelU)+cxo*syo*(zBa-zVelU)+sxo*syo*(yBa-yVelU),0,0,0,0,0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+% A=[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,1,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,1,0,0,0,0,0,0;0,0,0,0,-czo*(xBg-xOmgU)-szo*(yBg-yOmgU)-(cyo^2*czo*(xBg-xOmgU))/syo^2-(cyo^2*szo*(yBg-yOmgU))/syo^2,(cyo*czo*(yBg-yOmgU))/syo-(cyo*szo*(xBg-xOmgU))/syo,0,0,0,(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;0,0,0,0,0,czo*(xBg-xOmgU)+szo*(yBg-yOmgU),0,0,0,szo,-czo,0,0,0,0;0,0,0,0,(cyo*czo*(xBg-xOmgU))/syo^2+(cyo*szo*(yBg-yOmgU))/syo^2,(szo*(xBg-xOmgU))/syo-(czo*(yBg-yOmgU))/syo,0,0,0,-czo/syo,-szo/syo,0,0,0,0;0,0,0,-(sxo*szo+cxo*czo*syo)*(yBa-yVelU)-(cxo*szo-czo*sxo*syo)*(zBa-zVelU),czo*syo*(xBa-xVelU)-cxo*cyo*czo*(zBa-zVelU)-cyo*czo*sxo*(yBa-yVelU),(cxo*czo+sxo*syo*szo)*(yBa-yVelU)-(czo*sxo-cxo*syo*szo)*(zBa-zVelU)+cyo*szo*(xBa-xVelU),0,0,0,0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,(czo*sxo-cxo*syo*szo)*(yBa-yVelU)+(cxo*czo+sxo*syo*szo)*(zBa-zVelU),syo*szo*(xBa-xVelU)-cxo*cyo*szo*(zBa-zVelU)-cyo*sxo*szo*(yBa-yVelU),(cxo*szo-czo*sxo*syo)*(yBa-yVelU)-(sxo*szo+cxo*czo*syo)*(zBa-zVelU)-cyo*czo*(xBa-xVelU),0,0,0,0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,cyo*sxo*(zBa-zVelU)-cxo*cyo*(yBa-yVelU),cyo*(xBa-xVelU)+cxo*syo*(zBa-zVelU)+sxo*syo*(yBa-yVelU),0,0,0,0,0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+A=[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,1,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,1,0,0,0,0,0,0;0,0,0,0,-czo*(xNg+xBg-xOmgU)-szo*(yNg+yBg-yOmgU)-(cyo^2*czo*(xNg+xBg-xOmgU))/syo^2-(cyo^2*szo*(yNg+yBg-yOmgU))/syo^2,(cyo*czo*(yNg+yBg-yOmgU))/syo-(cyo*szo*(xNg+xBg-xOmgU))/syo,0,0,0,(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;0,0,0,0,0,czo*(xNg+xBg-xOmgU)+szo*(yNg+yBg-yOmgU),0,0,0,szo,-czo,0,0,0,0;0,0,0,0,(cyo*czo*(xNg+xBg-xOmgU))/syo^2+(cyo*szo*(yNg+yBg-yOmgU))/syo^2,(szo*(xNg+xBg-xOmgU))/syo-(czo*(yNg+yBg-yOmgU))/syo,0,0,0,-czo/syo,-szo/syo,0,0,0,0;0,0,0,-(sxo*szo+cxo*czo*syo)*(yNa+yBa-yVelU)-(cxo*szo-czo*sxo*syo)*(zNa+zBa-zVelU),czo*syo*(xNa+xBa-xVelU)-cxo*cyo*czo*(zNa+zBa-zVelU)-cyo*czo*sxo*(yNa+yBa-yVelU),(cxo*czo+sxo*syo*szo)*(yNa+yBa-yVelU)-(czo*sxo-cxo*syo*szo)*(zNa+zBa-zVelU)+cyo*szo*(xNa+xBa-xVelU),0,0,0,0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,(czo*sxo-cxo*syo*szo)*(yNa+yBa-yVelU)+(cxo*czo+sxo*syo*szo)*(zNa+zBa-zVelU),syo*szo*(xNa+xBa-xVelU)-cxo*cyo*szo*(zNa+zBa-zVelU)-cyo*sxo*szo*(yNa+yBa-yVelU),(cxo*szo-czo*sxo*syo)*(yNa+yBa-yVelU)-(sxo*szo+cxo*czo*syo)*(zNa+zBa-zVelU)-cyo*czo*(xNa+xBa-xVelU),0,0,0,0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,cyo*sxo*(zNa+zBa-zVelU)-cxo*cyo*(yNa+yBa-yVelU),cyo*(xNa+xBa-xVelU)+cxo*syo*(zNa+zBa-zVelU)+sxo*syo*(yNa+yBa-yVelU),0,0,0,0,0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 F = eye + dt*A;
+% U=[0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;szo,-czo,0,0,0,0;-czo/syo,-szo/syo,0,0,0,0;0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0];
 U=[0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;szo,-czo,0,0,0,0;-czo/syo,-szo/syo,0,0,0,0;0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0];
-Q = dt*(eye(6,6) * 0.01);
-covarEst = (F * covarPrev * F') + (U * Q * U');
+Q = 0;
+Qd = dt*(eye(6,6) * Q);
+covarEst = (F * covarPrev * F') + (U * Qd * U');
 
 % MY IMPLEMENTATION END ---------------------------------------------------
 
