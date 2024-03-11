@@ -54,16 +54,23 @@ cyo = cos(yOrient);
 czo = cos(zOrient);
 
 
-G_inv = [-(cyo*czo)/syo, -(cyo*szo)/syo, 1;-szo,czo, 0;czo/syo,szo/syo, 0];
-R = [cyo*czo, czo*sxo*syo - cxo*szo, sxo*szo + cxo*czo*syo;
-    cyo*szo, cxo*czo + sxo*syo*szo, cxo*syo*szo - czo*sxo;
-    -syo, cyo*sxo, cxo*cyo];
+G_inv=[(czo*syo)/cyo,(syo*szo)/cyo,1;-szo,czo,0;czo/cyo,szo/cyo,0];
+ 
+R=[cyo*czo,czo*sxo*syo-cxo*szo,sxo*szo+cxo*czo*syo;
+    cyo*szo,cxo*czo+sxo*syo*szo,cxo*syo*szo-czo*sxo;
+    -syo,cyo*sxo,cxo*cyo];
 
 f1 = x3;
 f2 = G_inv * (angVel - x4);
 f3 = [0;0;9.8] + R *(acc - x5); % 9.8 is only for Z axis
 f4 = zeros(3,1); % CHANGE THIS
 f5 = zeros(3,1); % CHANGE THIS
+% f4 = diff(x4, dt);
+% f5 = diff(x5, dt);
+% f4 = x4/dt;
+% f5 = x5/dt;
+f4 = ones(3,1);
+f5 = ones(3,1);
 
 f = vertcat(f1,f2,f3,f4,f5);
 uEst = uPrev + (dt*f);
@@ -72,9 +79,11 @@ uEst = uPrev + (dt*f);
 A=[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,1,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,1,0,0,0,0,0,0;0,0,0,0,-czo*(xNg+xBg-xOmgU)-szo*(yNg+yBg-yOmgU)-(cyo^2*czo*(xNg+xBg-xOmgU))/syo^2-(cyo^2*szo*(yNg+yBg-yOmgU))/syo^2,(cyo*czo*(yNg+yBg-yOmgU))/syo-(cyo*szo*(xNg+xBg-xOmgU))/syo,0,0,0,(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;0,0,0,0,0,czo*(xNg+xBg-xOmgU)+szo*(yNg+yBg-yOmgU),0,0,0,szo,-czo,0,0,0,0;0,0,0,0,(cyo*czo*(xNg+xBg-xOmgU))/syo^2+(cyo*szo*(yNg+yBg-yOmgU))/syo^2,(szo*(xNg+xBg-xOmgU))/syo-(czo*(yNg+yBg-yOmgU))/syo,0,0,0,-czo/syo,-szo/syo,0,0,0,0;0,0,0,-(sxo*szo+cxo*czo*syo)*(yNa+yBa-yVelU)-(cxo*szo-czo*sxo*syo)*(zNa+zBa-zVelU),czo*syo*(xNa+xBa-xVelU)-cxo*cyo*czo*(zNa+zBa-zVelU)-cyo*czo*sxo*(yNa+yBa-yVelU),(cxo*czo+sxo*syo*szo)*(yNa+yBa-yVelU)-(czo*sxo-cxo*syo*szo)*(zNa+zBa-zVelU)+cyo*szo*(xNa+xBa-xVelU),0,0,0,0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,(czo*sxo-cxo*syo*szo)*(yNa+yBa-yVelU)+(cxo*czo+sxo*syo*szo)*(zNa+zBa-zVelU),syo*szo*(xNa+xBa-xVelU)-cxo*cyo*szo*(zNa+zBa-zVelU)-cyo*sxo*szo*(yNa+yBa-yVelU),(cxo*szo-czo*sxo*syo)*(yNa+yBa-yVelU)-(sxo*szo+cxo*czo*syo)*(zNa+zBa-zVelU)-cyo*czo*(xNa+xBa-xVelU),0,0,0,0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,cyo*sxo*(zNa+zBa-zVelU)-cxo*cyo*(yNa+yBa-yVelU),cyo*(xNa+xBa-xVelU)+cxo*syo*(zNa+zBa-zVelU)+sxo*syo*(yNa+yBa-yVelU),0,0,0,0,0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 F = eye + dt*A;
 % U=[0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;szo,-czo,0,0,0,0;-czo/syo,-szo/syo,0,0,0,0;0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0];
-U=[0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;szo,-czo,0,0,0,0;-czo/syo,-szo/syo,0,0,0,0;0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0];
-Q = 0;
-Qd = dt*(eye(6,6) * Q);
+% U=[0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;(cyo*czo)/syo,(cyo*szo)/syo,-1,0,0,0;szo,-czo,0,0,0,0;-czo/syo,-szo/syo,0,0,0,0;0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0;0,0,0,0,0,0];
+U=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,-(czo*syo)/cyo,-(syo*szo)/cyo,-1,0,0,0;0,0,0,0,0,0,0,0,0,szo,-czo,0,0,0,0;0,0,0,0,0,0,0,0,0,-czo/cyo,-szo/cyo,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,-cyo*czo,cxo*szo-czo*sxo*syo,-sxo*szo-cxo*czo*syo;0,0,0,0,0,0,0,0,0,0,0,0,-cyo*szo,-cxo*czo-sxo*syo*szo,czo*sxo-cxo*syo*szo;0,0,0,0,0,0,0,0,0,0,0,0,syo,-cyo*sxo,-cxo*cyo;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+% Q = 0.11;
+Q = 0.11;
+Qd = dt*(eye(15,15) * Q);
 covarEst = (F * covarPrev * F') + (U * Qd * U');
 
 % MY IMPLEMENTATION END ---------------------------------------------------

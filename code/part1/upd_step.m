@@ -5,7 +5,7 @@ function [uCurr,covar_curr] = upd_step(z_t,covarEst,uEst)
 
 % MY IMPLEMENTATION START -------------------------------------------------
 C = horzcat(eye(6), zeros(6,9));
-R = eye(6) * 0.01;
+R = eye(6) * 0.1;
 % R = zeros(6);
 % K = (covarEst * C') *  inv((C * covarEst * C') + R);
 K = (covarEst * C') / ((C * covarEst * C') + R);

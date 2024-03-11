@@ -21,7 +21,7 @@ y_hat = [0;1;0];
 z_hat = [0;0;1];
 
 
-G = simplify(horzcat( z_hat, Rz*y_hat, Rz*Ry*z_hat ));
+G = simplify(horzcat( z_hat, Rz*y_hat, Rz*Ry*x_hat ));
 R = simplify(Rz * Ry * Rx);
 G_inv = simplify(inv(G));
 
@@ -37,9 +37,11 @@ x = vertcat(x1,x2,x3,x4,x5);
 
 ng = [ngx;ngy;ngz];
 na = [nax;nay;naz];
-n = vertcat(ng,na);
+
 % ng = zeros(3,1);
 % na = zeros(3,1);
+syms nXPos nYPos nZPos nXOrient nYOrient nZOrient nXVel nYVel nZVel;
+n = [nXPos;nYPos;nZPos;nXOrient;nYOrient;nZOrient;nXVel;nYVel;nZVel;ng;na];
 
 angVel = [xOmgU;yOmgU;zOmgU];
 acc = [xVelU;yVelU;zVelU];
