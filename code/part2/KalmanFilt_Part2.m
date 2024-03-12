@@ -9,7 +9,7 @@ savedStates = zeros(15, length(sampledTime)); %J ust for saving state his.
 prevTime = 0; %last time step in real time
 %write your code here calling the pred_step.m and upd_step.m functions
 for i = 1:length(sampledTime)
-    % MY IMPLEMENTATION START -------------------------------------------------
+% MY IMPLEMENTATION START -------------------------------------------------
     if sampledData(i).is_ready == 1
         dt = sampledTime(i) - prevTime; % Calculate time interval dt
         prevTime = sampledTime(i); % Update the previous time variable
@@ -23,6 +23,6 @@ for i = 1:length(sampledTime)
         uPrev = uCurr;
         covarPrev = covar_curr;
     end
-    % MY IMPLEMENTATION END ---------------------------------------------------
+% MY IMPLEMENTATION END ---------------------------------------------------
 end
 plotData(savedStates, sampledTime, sampledVicon, 1, datasetNum);
