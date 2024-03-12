@@ -15,8 +15,8 @@ for i = 1:length(sampledTime)
    prevTime = sampledTime(i); % Update the previous time variable
    [covarEst,uEst] = pred_step(uPrev,covarPrev,sampledData(i).omg,sampledData(i).acc,dt); % Perform the prediction step
    [uCurr,covar_curr] = upd_step(Z(:,i),covarEst,uEst);
-   savedStates(:, i) = uCurr;
-   % savedStates(:,i) = uCurr + diag(covar_curr);
+   % savedStates(:, i) = uCurr;
+   savedStates(:,i) = uCurr + diag(covar_curr);
    uPrev = uCurr;
    covarPrev = covar_curr;
 % MY IMPLEMENTATION END ---------------------------------------------------    
