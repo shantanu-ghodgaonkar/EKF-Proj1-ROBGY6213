@@ -3,9 +3,9 @@ function [uCurr,covar_curr] = upd_step(z_t,covarEst,uEst)
 %covarEst and uEst are the predicted covariance and mean respectively
 %uCurr and covar_curr are the updated mean and covariance respectively
 % Based on analysis, initialise the matrix C as shown below
-C = horzcat(zeros(3),eye(3), zeros(3,9));
+C = horzcat(zeros(3,6), eye(3), zeros(3,6));
 % Tuned value for R
-R = eye(3) * 10;
+R = eye(3) * 0.0001;
 % Kalman Gain
 K = (covarEst * C') / ((C * covarEst * C') + R);
 % Updated Covariance matrix

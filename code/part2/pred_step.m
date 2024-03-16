@@ -122,7 +122,7 @@ U=[0,0,0,0,0,0,0,0,0,0,0,0;
 Q = 0.01;
 
 % Calculate Qd
-Qd = dt*(eye(12,12) * Q);
+Qd = dt*(eye(12) * Q);
 
 % Calcualte predicted covariance
 covarEst = (F * covarPrev * F') + (U * Qd * U');
