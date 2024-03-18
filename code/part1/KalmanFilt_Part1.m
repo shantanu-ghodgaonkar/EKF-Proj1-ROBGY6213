@@ -1,5 +1,5 @@
 clear; % Clear variables
-datasetNum = 1; % CHANGE THIS VARIABLE TO CHANGE DATASET_NUM
+datasetNum = 9; % CHANGE THIS VARIABLE TO CHANGE DATASET_NUM
 [sampledData, sampledVicon, sampledTime] = init(datasetNum);
 Z = sampledVicon(1:6,:);%all the measurements that you need for the update
 % Set initial condition

@@ -26,4 +26,3 @@ for i = 1:length(sampledTime)
 % MY IMPLEMENTATION END ---------------------------------------------------
 end
 plotData(savedStates, sampledTime, sampledVicon, 1, datasetNum);
-% plotData_mod(savedStates, sampledTime, sampledVicon, 1, datasetNum);
