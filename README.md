@@ -49,12 +49,12 @@ The EKF successfully estimates the MAV's state in both configurations. The resul
 - **Part 1**: EKF with position and orientation measurements from Vicon provides accurate estimates for the MAV’s position, orientation, velocity, and sensor biases.
 - **Part 2**: EKF using only velocity measurements shows a slight trade-off in position estimation accuracy but still performs well in velocity estimation.
 
-### Part 1: EKF with Position and Orientation Measurements
+### Part 1: EKF with Position, Orientation, and Velocity Measurements
 
 <p align="center">
-  <img src="path-to-position-x-plot-part1.png" alt="Part 1: Position X Estimate" width="300"/>
-  <img src="path-to-position-y-plot-part1.png" alt="Part 1: Position Y Estimate" width="300"/>
-  <img src="path-to-position-z-plot-part1.png" alt="Part 1: Position Z Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Position%20X.png" alt="Part 1: Position X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Position%20Y.png" alt="Part 1: Position Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Position%20Z.png" alt="Part 1: Position Z Estimate" width="300"/>
 </p>
 
 <p align="center">
@@ -62,36 +62,57 @@ The EKF successfully estimates the MAV's state in both configurations. The resul
 </p>
 
 <p align="center">
-  <img src="path-to-orientation-x-plot-part1.png" alt="Part 1: Orientation X Estimate" width="300"/>
-  <img src="path-to-orientation-y-plot-part1.png" alt="Part 1: Orientation Y Estimate" width="300"/>
-  <img src="path-to-orientation-z-plot-part1.png" alt="Part 1: Orientation Z Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Orientation%20X.png" alt="Part 1: Orientation X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Orientation%20Y.png" alt="Part 1: Orientation Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Orientation%20Z.png" alt="Part 1: Orientation Z Estimate" width="300"/>
 </p>
 
 <p align="center">
   <b>Fig 2:</b> Part 1 - Estimated Orientation X, Y, Z
 </p>
 
-### Part 2: EKF with Velocity Measurements
-
 <p align="center">
-  <img src="path-to-position-x-plot-part2.png" alt="Part 2: Position X Estimate" width="300"/>
-  <img src="path-to-position-y-plot-part2.png" alt="Part 2: Position Y Estimate" width="300"/>
-  <img src="path-to-position-z-plot-part2.png" alt="Part 2: Position Z Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Velocity%20X.png" alt="Part 1: Velocity X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Velocity%20Y.png" alt="Part 1: Velocity Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part1/dataset1/Velocity%20Z.png" alt="Part 1: Velocity Z Estimate" width="300"/>
 </p>
 
 <p align="center">
-  <b>Fig 3:</b> Part 2 - Estimated Position X, Y, Z
+  <b>Fig 3:</b> Part 1 - Estimated Velocity X, Y, Z
+</p>
+
+### Part 2: EKF with Position, Orientation, and Velocity Measurements
+
+<p align="center">
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Position%20X.png" alt="Part 2: Position X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Position%20Y.png" alt="Part 2: Position Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Position%20Z.png" alt="Part 2: Position Z Estimate" width="300"/>
 </p>
 
 <p align="center">
-  <img src="path-to-orientation-x-plot-part2.png" alt="Part 2: Orientation X Estimate" width="300"/>
-  <img src="path-to-orientation-y-plot-part2.png" alt="Part 2: Orientation Y Estimate" width="300"/>
-  <img src="path-to-orientation-z-plot-part2.png" alt="Part 2: Orientation Z Estimate" width="300"/>
+  <b>Fig 4:</b> Part 2 - Estimated Position X, Y, Z
 </p>
 
 <p align="center">
-  <b>Fig 4:</b> Part 2 - Estimated Orientation X, Y, Z
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Orientation%20X.png" alt="Part 2: Orientation X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Orientation%20Y.png" alt="Part 2: Orientation Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Orientation%20Z.png" alt="Part 2: Orientation Z Estimate" width="300"/>
 </p>
+
+<p align="center">
+  <b>Fig 5:</b> Part 2 - Estimated Orientation X, Y, Z
+</p>
+
+<p align="center">
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Velocity%20X.png" alt="Part 2: Velocity X Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Velocity%20Y.png" alt="Part 2: Velocity Y Estimate" width="300"/>
+  <img src="https://github.com/shantanu-ghodgaonkar/EKF-Proj1-ROBGY6213/blob/0056f4c2b3449ea6359e5e983bd1e3f6baa488aa/img/plots/part2/dataset1/Velocity%20Z.png" alt="Part 2: Velocity Z Estimate" width="300"/>
+</p>
+
+<p align="center">
+  <b>Fig 6:</b> Part 2 - Estimated Velocity X, Y, Z
+</p>
+
 
 The EKF also effectively estimated sensor biases for both the accelerometer and gyroscope.
 
@@ -112,4 +133,3 @@ This project successfully implements an Extended Kalman Filter (EKF) for state e
 3. “Introduction.” In: *Estimation with Applications to Tracking and Navigation*. John Wiley & Sons, Ltd. ISBN: 9780471221272. DOI: [10.1002/0471221279.ch1](https://doi.org/10.1002/0471221279.ch1).
 4. Sebastian Thrun, Wolfram Burgard, and Dieter Fox. *Probabilistic Robotics*. The MIT Press, 2005. ISBN: 0262201623.
 5. Wikipedia contributors. "Extended Kalman filter." Wikipedia, The Free Encyclopedia. Last modified March 15, 2024. [Link](https://en.wikipedia.org/w/index.php?title=Extended_Kalman_filter&oldid=1200061147).
-  
